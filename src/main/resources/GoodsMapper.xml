@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Dao.GoodsDao">
+    <select id="FindNewGoods" resultType="com.POJO.Goods">
+        select * from goods where is_new="是" limit 10
+    </select>
+    <select id="FindHotGoods" resultType="com.POJO.Goods">
+        select * from goods where is_sale_well="是" limit 10
+    </select>
+    <select id="GoodsDetail" resultType="com.POJO.Goods" parameterType="String">
+        select * from goods where serial=#{serial}
+    </select>
+
+    <select id="findGoodsByCategoryId" resultType="int" parameterType="int">
+        select count(*) from goods where category_id=#{id};
+    </select>
+
+    <select id="findGoodsByCategoryAndPage" resultType="com.POJO.Goods" >
+        select * from goods where category_id=#{id} limit #{index},#{pageSize};
+    </select>
+</mapper>

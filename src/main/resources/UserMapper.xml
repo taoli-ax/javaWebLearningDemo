@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Dao.UserDao">
+    <select id="FindUserByName" resultType="com.POJO.User" parameterType="String">
+        select * from user where name=#{username}
+    </select>
+
+    <select id="FindUserByActivateCode" resultType="com.POJO.User" parameterType="String">
+        select * from user where activateCode=#{activateCode}
+    </select>
+    <select id="LoginByEmail" resultType="com.POJO.User" parameterType="map">
+        select * from user where email=#{email} and password=#{password}
+    </select>
+
+    <insert id="createUser" parameterType="com.POJO.User">
+        insert into  user(name,password,email) values(#{name},#{password},#{email})
+    </insert>
+    <update id="updateUser" parameterType="map">
+        update user set activateCode=#{activateCode} where name=#{name}
+    </update>
+
+    <update id="updateUserStatus" parameterType="map">
+        update user set status=#{status} where name=#{name}
+    </update>
+
+</mapper>

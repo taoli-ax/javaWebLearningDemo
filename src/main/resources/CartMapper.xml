@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Dao.CartDao">
+    <insert id="addToCart" parameterType="com.POJO.Cart">
+        insert into cart(user_id,goods_id,goods_quantity,subtotal)values(#{user_id},#{goods_id},#{goods_quantity},#{subtotal})
+    </insert>
+
+    <select id="findCartByUserIdAndGoodId" resultType="com.POJO.Cart">
+        select * from cart where user_id=#{userId} and goods_id=#{goodsId}
+    </select>
+    <update id="updateCart" parameterType="com.POJO.Cart">
+        update cart set goods_quantity=#{goods_quantity}, subtotal=#{subtotal} where id=#{id}
+    </update>
+
+
+
+    <resultMap id="cartGoodsMap" type="com.POJO.Cart">
+        <id column="id" property="id" />
+        <result column="user_id" property="user_id" />
+        <result column="subtotal" property="subtotal" />
+        <result column="goods_quantity" property="goods_quantity" />
+
+        <association property="goods" column="goods_id" javaType="com.POJO.Goods">
+            <result column="image" property="image" />
+            <result column="caption" property="caption"/>
+            <result column="retail_price" property="retail_price" />
+            <result column="name" property="name" />
+        </association>
+    </resultMap>
+
+    <select id="queryUserCart" parameterType="long" resultMap="cartGoodsMap">
+            select g.name,g.retail_price,g.image,g.caption,c.subtotal,c.goods_quantity from goods as g,cart as c where g.id=c.goods_id and c.user_id=#{userId}
+    </select>
+
+</mapper>

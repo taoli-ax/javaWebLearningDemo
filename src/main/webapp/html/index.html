@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <script src="/javascript/jquery-3.6.3.js"></script>
+    <title>Index</title>
+</head>
+<body class="index">
+<div class="container">
+    <div class="container-header" id="container-header">
+        <h1 class="logo">
+            <p>hello java</p>
+            <a href="" style="background: url(images/logo.jpg);"></a>
+        </h1>
+        <c:if>
+        <ul class="short-cut">
+            <li>个人中心</li>
+            <li>订单中心</li>
+            <p>安全退出</p>
+        </ul>
+        </c:if>
+        <c:if>
+        <ul class="short-cut">
+            <li>登录</li>
+        </ul>
+        </c:if>
+    </div>
+
+    <div class="main" id="container-body">
+        <div class="box yellow">
+            <div class="title3">
+                <h2>
+                    <img>
+                    <a class="more" href="">更多..</a>
+                </h2>
+            </div>
+            <div class="content">
+                <button id="newest">what's new</button>
+                <ul class="list" >
+                    <li>商品详情</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="side-bar" id="container-side-bar">
+        <div>
+            <ul class="hot_goods">
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+
+<script>
+    $("#newest").click(function(){
+            $.ajax({
+            url:"${pageContext.request.contextPath}/newGood",
+            type:"get",
+            dataType:"json",
+            success(msg){
+                if(msg!=null){
+                console.log("response success!"+msg+" type:"+typeof(msg));
+                 $.each(msg, function(index, element) {
+                     $(".list").html(`<li><label>`+element.name+`</label></li>`);
+                 })
+            }
+        }})
+        })
+    $.ajax({
+        url:"${pageContext.request.contextPath}/hotGoods"
+    })
+   
+</script>
+</html>
