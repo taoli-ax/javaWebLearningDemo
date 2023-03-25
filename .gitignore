@@ -21,3 +21,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+
+# intellij
+.idea
+target
+bootstrap-5.0.2-dist
+bootstrap-5.3.0-alpha1-dist
+fontawesome-free-5.15.4-web
+jquery-3.6.4.js
+jquery-3.6.3.js
